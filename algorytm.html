@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html lang='en-us'>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="https://algorithmia.com/v1/clients/js/algorithmia-0.2.1.js" type="text/javascript"></script>
+
+    <!-- Bootstrap CDN -->
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'
+          integrity='sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7' crossorigin='anonymous'>
+</head>
+
+<body>
+
+<div class='container'>
+
+    <div class='jumbotron'>
+        <div class='container' style="margin: 20px; ">
+            <h1>Enter a random sentence and I will count the number of words in that sentence.</h1>
+            <input id="Text">
+
+            <button class="btn btn-success" id="say" style="margin-left: 20px; ">Let me count the words</button>
+        </div>
+    </div>
+
+    <div class='row'>
+        <div class='col-lg-12'>
+            <div class='panel panel-default'>
+                <div class='panel-heading'>
+                    <h3 style="margin-left: 80px; " id="result">And the answer is</h3>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    let submitButton = document.getElementById('say');
+
+    submitButton.addEventListener('click', () => {
+        let input = document.getElementById('Text').value;
+
+        //let html = input + output;
+        Algorithmia.client("simYu5WwblFDr1a7YpXFvzW/A8/1")
+            .algo("diego/WordCounter/0.1.0?timeout=300") // timeout is optional
+            .pipe(input)
+            .then(function (output) {
+                document.getElementById('result').innerHTML = "Your sentence contains:" + " " + output.result + " words"
+            });
+
+    });
+    //document.getElementById('result').innerHTML = html
+</script>
+
+</body>
+
+</html>
